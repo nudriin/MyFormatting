@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+        setupData()
     }
 
     private fun setupAction() {
@@ -38,5 +39,23 @@ class MainActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun setupData() {
+        val data = RemoteDataSource(this)
+        val product = data.getDetailProduct()
+        product.apply {
+            binding.apply {
+                previewImageView.setImageResource(image)
+                nameTextView.text = name
+                storeTextView.text = store
+                colorTextView.text = color
+                sizeTextView.text = size
+                descTextView.text = desc
+                priceTextView.text = price
+                dateTextView.text = getString(R.string.dateFormat, date)
+                ratingTextView.text = getString(R.string.ratingFormat, rating, countRating)
+            }
+        }
     }
 }
